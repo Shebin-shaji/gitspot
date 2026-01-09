@@ -12,15 +12,17 @@ class BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context); // Get current theme (light/dark)
+    final theme = Theme.of(context);
 
     return BottomNavigationBar(
+    
       currentIndex: currentIndex,
       onTap: onTap,
       type: BottomNavigationBarType.fixed,
 
       // Background comes from theme
-      backgroundColor: theme.scaffoldBackgroundColor,
+      backgroundColor: Colors.black,
+      // theme.scaffoldBackgroundColor,
 
       // Selected icon/text color comes from theme's primary color
       selectedItemColor: theme.colorScheme.primary,
@@ -30,7 +32,7 @@ class BottomNavBar extends StatelessWidget {
 
       selectedLabelStyle: theme.textTheme.bodyMedium, // Outfit font applied
       unselectedLabelStyle: theme.textTheme.bodyMedium, // Outfit font applied
-
+       
       items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.home_filled),

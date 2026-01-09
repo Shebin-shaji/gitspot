@@ -22,6 +22,7 @@ class MyApp extends ConsumerWidget {
       darkTheme: AppTheme.darkTheme,
       themeMode: themeMode,
       home: const SplashScreen(),
+      
     );
   }
 }
