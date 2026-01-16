@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:git_spot/view/config/app_theme.dart';
 import 'package:git_spot/view/config/theme_provider.dart';
+import 'package:git_spot/view/config/app_router.dart';
 import 'package:git_spot/view/features/splash/view/splash_screen.dart';
 
 void main() {
@@ -14,15 +15,15 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(themeProvider);
+    final router = ref.watch(appRouterProvider);
 
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'GitSpot',
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: themeMode,
-      home: const SplashScreen(),
-      
+      routerConfig: router,
     );
   }
 }

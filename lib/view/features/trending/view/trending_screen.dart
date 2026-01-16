@@ -5,6 +5,10 @@ class TrendingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child: Scaffold(backgroundColor: Colors.yellow));
+    return const Scaffold(
+      body: Center(
+        child: Text('Trending Screen'),
+      ),
+    );
   }
 }
