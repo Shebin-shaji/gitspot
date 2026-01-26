@@ -1,142 +1,95 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:git_spot/view/config/theme_provider.dart';
+import 'package:git_spot/view/shared/widgets/custom_primary_app_bar.dart';
+import 'package:git_spot/view/shared/widgets/custom_primary_search_bar.dart';
 
-class HomeMainView extends StatelessWidget {
+class HomeMainView extends ConsumerWidget {
   const HomeMainView({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.black,
-          centerTitle: true,
-          title: Text(
-            "GitSpot",
-            style: GoogleFonts.poppins(
-              color: Colors.white,
-              fontWeight: FontWeight.w500,
+        appBar: CustomPrimaryAppBar(
+          title: "GitSpot",
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.brightness_6),
+              onPressed: () {
+                ref.read(themeProvider.notifier).toggleTheme();
+              },
             ),
-          ),
+          ],
         ),
-        backgroundColor: Colors.black,
         body: Padding(
-          padding: const .symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             children: [
-              SizedBox(height: 32),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: "Search for Git users",
-                  labelStyle: const TextStyle(color: Colors.grey),
-
-                  // Unfocused border
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: const BorderSide(
-                      color: Colors.grey,
-                      width: 1.2,
-                    ),
-                  ),
-
-                  // Focused border
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: const BorderSide(
-                      color: Colors.white,
-                      width: 1.5,
-                    ),
-                  ),
-
-                  // Background
-                  filled: true,
-                  fillColor:
-                      Colors.transparent, // keep transparent or set a color
-                ),
-                style: const TextStyle(color: Colors.white),
-                cursorColor: Colors.white,
+              const SizedBox(height: 32),
+              const CustomPrimaryTextField(
+                labelText: "Search for Git users",
               ),
-              SizedBox(height: 6),
+
+              const SizedBox(height: 6),
               Align(
-                alignment: .bottomRight,
+                alignment: Alignment.bottomRight,
                 child: Text(
                   "Search a Repo",
-                  style: TextStyle(color: Colors.blue),
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: theme.colorScheme.primary,
+                  ),
                 ),
               ),
-              SizedBox(height: 32),
+
+              const SizedBox(height: 32),
+
               SizedBox(
                 height: 250,
                 width: MediaQuery.of(context).size.width,
                 child: Column(
                   children: [
                     Row(
-                      spacing: 12,
-
                       children: [
-                        CircleAvatar(radius: 45, backgroundColor: Colors.white),
+                        const CircleAvatar(radius: 45),
+                        const SizedBox(width: 12),
+
                         Column(
-                          spacing: 10,
-                          mainAxisAlignment: .spaceBetween,
-                          crossAxisAlignment: .start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
-                              mainAxisAlignment: .spaceBetween,
                               children: [
                                 Text(
                                   "Shebin Shaji",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 24,
-                                  ),
+                                  style: theme.textTheme.titleLarge,
                                 ),
-                                Align(
-                                  alignment: .centerRight,
-                                  child: Icon(
-                                    Icons.favorite,
-                                    color: Colors.white,
-                                  ),
+                                const SizedBox(width: 8),
+                                Icon(
+                                  Icons.favorite,
+                                  color: theme.iconTheme.color,
                                 ),
                               ],
                             ),
+
+                            const SizedBox(height: 10),
+
                             Row(
-                              spacing: 10,
                               children: [
-                                Column(
-                                  children: [
-                                    Text(
-                                      "Repositories",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                    Text(
-                                      "51",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ],
+                                _StatItem(
+                                  label: "Repositories",
+                                  value: "51",
                                 ),
-                                Column(
-                                  children: [
-                                    Text(
-                                      "Followers",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                    Text(
-                                      "51",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ],
+                                const SizedBox(width: 12),
+                                _StatItem(
+                                  label: "Followers",
+                                  value: "51",
                                 ),
-                                Column(
-                                  children: [
-                                    Text(
-                                      "Following",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                    Text(
-                                      "51",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ],
+                                const SizedBox(width: 12),
+                                _StatItem(
+                                  label: "Following",
+                                  value: "51",
                                 ),
                               ],
                             ),
@@ -144,26 +97,30 @@ class HomeMainView extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: 16),
+
+                    const SizedBox(height: 16),
+
                     Row(
-                      spacing: 12,
                       children: [
-                        Icon(Icons.person, color: Colors.white),
+                        Icon(Icons.person, color: theme.iconTheme.color),
+                        const SizedBox(width: 12),
                         Text(
                           "Data Science | AI/ML",
-                          style: TextStyle(color: Colors.white),
+                          style: theme.textTheme.bodyMedium,
                         ),
                       ],
                     ),
-                    SizedBox(height: 14),
+
+                    const SizedBox(height: 14),
 
                     Row(
-                      spacing: 12,
                       children: [
-                        Icon(Icons.attach_file_outlined, color: Colors.white),
+                        Icon(Icons.attach_file_outlined,
+                            color: theme.iconTheme.color),
+                        const SizedBox(width: 12),
                         Text(
                           "Not Mentioned",
-                          style: TextStyle(color: Colors.white),
+                          style: theme.textTheme.bodyMedium,
                         ),
                       ],
                     ),
@@ -174,6 +131,30 @@ class HomeMainView extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+
+
+class _StatItem extends StatelessWidget {
+  final String label;
+  final String value;
+
+  const _StatItem({
+    required this.label,
+    required this.value,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Column(
+      children: [
+        Text(label, style: theme.textTheme.bodySmall),
+        Text(value, style: theme.textTheme.titleMedium),
+      ],
     );
   }
 }
