@@ -32,7 +32,8 @@ Save and view your favorite GitHub profiles
 Explore trending GitHub repositories of the day
 
 🛠️ Getting Started
-git clone https://github.com/your-username/GitSpot.git
+git clone https://github.com/Shebin-shaji/gitspot.git
+git clone 
 flutter pub get
 flutter run
 
