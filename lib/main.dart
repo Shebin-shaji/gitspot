@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:git_spot/view/config/app_theme.dart';
 import 'package:git_spot/view/config/theme_provider.dart';
 import 'package:git_spot/view/config/app_router.dart';
-import 'package:git_spot/view/features/splash/view/splash_screen.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));

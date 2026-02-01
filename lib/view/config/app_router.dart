@@ -7,19 +7,20 @@ import 'package:git_spot/view/features/repos/view/repos_screen.dart';
 import 'package:git_spot/view/features/favorites/view/favorites_screen.dart';
 import 'package:git_spot/view/features/trending/view/trending_screen.dart';
 import 'package:git_spot/view/shared/widgets/bottom_nav_bar.dart';
+import 'package:git_spot/view/features/home/view/user_repos.dart';
+import 'package:git_spot/view/features/home/view/time_line_page.dart';
+import 'package:git_spot/view/features/home/view/friends_page.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
-final GlobalKey<NavigatorState> _shellNavigatorKey = GlobalKey<NavigatorState>();
+final GlobalKey<NavigatorState> _shellNavigatorKey =
+    GlobalKey<NavigatorState>();
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
     navigatorKey: _rootNavigatorKey,
     initialLocation: '/',
     routes: [
-      GoRoute(
-        path: '/',
-        builder: (context, state) => const SplashScreen(),
-      ),
+      GoRoute(path: '/', builder: (context, state) => const SplashScreen()),
       ShellRoute(
         navigatorKey: _shellNavigatorKey,
         builder: (context, state, child) {
@@ -29,6 +30,20 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: '/home',
             builder: (context, state) => const HomeScreen(),
+            routes: [
+              GoRoute(
+                path: 'user-repos',
+                builder: (context, state) => const UserRepos(),
+              ),
+              GoRoute(
+                path: 'timeline',
+                builder: (context, state) => const TimeLinePage(),
+              ),
+              GoRoute(
+                path: 'friends',
+                builder: (context, state) => const FriendsPage(),
+              ),
+            ],
           ),
           GoRoute(
             path: '/repos',
