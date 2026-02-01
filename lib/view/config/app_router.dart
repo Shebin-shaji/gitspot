@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:git_spot/view/features/home/view/home_main_view.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:git_spot/view/features/splash/view/splash_screen.dart';
@@ -29,7 +30,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         routes: [
           GoRoute(
             path: '/home',
-            builder: (context, state) => const HomeScreen(),
+            builder: (context, state) => const HomeMainView(),
             routes: [
               GoRoute(
                 path: 'user-repos',

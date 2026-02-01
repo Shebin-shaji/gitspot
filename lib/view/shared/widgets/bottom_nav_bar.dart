@@ -15,14 +15,12 @@ class BottomNavBar extends StatelessWidget {
     final theme = Theme.of(context);
 
     return BottomNavigationBar(
-    
       currentIndex: currentIndex,
       onTap: onTap,
       type: BottomNavigationBarType.fixed,
 
       // Background comes from theme
-      backgroundColor: Colors.black,
-      // theme.scaffoldBackgroundColor,
+      backgroundColor: theme.scaffoldBackgroundColor,
 
       // Selected icon/text color comes from theme's primary color
       selectedItemColor: theme.colorScheme.primary,
@@ -32,20 +30,11 @@ class BottomNavBar extends StatelessWidget {
 
       selectedLabelStyle: theme.textTheme.bodyMedium, // Outfit font applied
       unselectedLabelStyle: theme.textTheme.bodyMedium, // Outfit font applied
-       
+
       items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home_filled),
-          label: 'Home',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.book),
-          label: 'Repos',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.favorite),
-          label: 'Favorites',
-        ),
+        BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: 'Home'),
+        BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Repos'),
+        BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Favorites'),
         BottomNavigationBarItem(
           icon: Icon(Icons.trending_up),
           label: 'Trending',

@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:git_spot/view/features/home/view/home_screen.dart';
-import 'package:git_spot/view/shared/widgets/bottom_nav_bar.dart';
-import 'package:go_router/go_router.dart';
 
+import 'package:go_router/go_router.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

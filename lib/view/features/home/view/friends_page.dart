@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:git_spot/view/features/home/widgets/profile_list_tile.dart';
-import 'package:git_spot/view/features/trending/widget/trending_developer_card.dart';
-import 'package:git_spot/view/features/trending/widget/trending_repo_card.dart';
+import 'package:git_spot/view/features/home/widgets/friend_list_tile.dart';
 import 'package:git_spot/view/shared/widgets/custom_primary_app_bar.dart';
+import 'package:git_spot/view/shared/widgets/custom_tab_bar_view.dart';
 
 class FriendsPage extends StatelessWidget {
   const FriendsPage({super.key});
@@ -10,48 +9,46 @@ class FriendsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomPrimaryAppBar(title: "Shebin's Friends"),
-      body: Column(
+      appBar: const CustomPrimaryAppBar(title: "Shebin's Friends"),
+      body: CustomTabBarView(
+        tabTitles: const ["Following", "Followers"],
         children: [
-          TabBar(
-            tabs: [
-              Tab(text: "Following"),
-              Tab(text: "Followers"),
+          // Following List
+          ListView(
+            padding: const EdgeInsets.all(16),
+            children: [
+              const FriendListTile(
+                name: "Shebin Shaji",
+                followersCount: "51",
+                avatarUrl: "https://avatars.githubusercontent.com/u/1?v=4",
+              ),
+              const SizedBox(height: 16),
+              const FriendListTile(
+                name: "Google",
+                followersCount: "20k",
+                avatarUrl:
+                    "https://avatars.githubusercontent.com/u/1342004?v=4",
+              ),
             ],
           ),
 
-          Expanded(
-            child: TabBarView(
-              children: [
-                // Repos Page (Scrollable)
-                ListView(
-                  padding: EdgeInsets.all(16),
-                  children: [
-                    ProfileListTile(
-                      name: "Shebin Shaji",
-                      username: "shebin-shaji",
-                      imageUrl: "https://avatars.githubusercontent.com/u/1?v=4",
-                      onShare: () {},
-                      onDelete: () {},
-                    ),
-                  ],
-                ),
-
-                // Developers Page (Scrollable)
-                ListView(
-                  padding: EdgeInsets.all(16),
-                  children: [
-                     ProfileListTile(
-                      name: "Shebin Shaji",
-                      username: "shebin-shaji",
-                      imageUrl: "https://avatars.githubusercontent.com/u/1?v=4",
-                      onShare: () {},
-                      onDelete: () {},
-                    ),
-                  ],
-                ),
-              ],
-            ),
+          // Followers List
+          ListView(
+            padding: const EdgeInsets.all(16),
+            children: [
+              const FriendListTile(
+                name: "Shebin Shaji",
+                followersCount: "51",
+                avatarUrl: "https://avatars.githubusercontent.com/u/1?v=4",
+              ),
+              const SizedBox(height: 16),
+              const FriendListTile(
+                name: "Flutter",
+                followersCount: "135k",
+                avatarUrl:
+                    "https://avatars.githubusercontent.com/u/14101776?v=4",
+              ),
+            ],
           ),
         ],
       ),
