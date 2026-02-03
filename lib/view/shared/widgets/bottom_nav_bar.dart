@@ -19,17 +19,12 @@ class BottomNavBar extends StatelessWidget {
       onTap: onTap,
       type: BottomNavigationBarType.fixed,
 
-      // Background comes from theme
       backgroundColor: theme.scaffoldBackgroundColor,
 
-      // Selected icon/text color comes from theme's primary color
       selectedItemColor: theme.colorScheme.primary,
 
-      // Unselected color: slightly dimmed, calculated from text color
-      unselectedItemColor: theme.textTheme.bodyMedium?.color?.withOpacity(0.6),
-
-      selectedLabelStyle: theme.textTheme.bodyMedium, // Outfit font applied
-      unselectedLabelStyle: theme.textTheme.bodyMedium, // Outfit font applied
+      selectedLabelStyle: theme.textTheme.bodyMedium,
+      unselectedLabelStyle: theme.textTheme.bodyMedium,
 
       items: const [
         BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: 'Home'),

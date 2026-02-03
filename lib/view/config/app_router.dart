@@ -3,7 +3,6 @@ import 'package:git_spot/view/features/home/view/home_main_view.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:git_spot/view/features/splash/view/splash_screen.dart';
-import 'package:git_spot/view/features/home/view/home_screen.dart';
 import 'package:git_spot/view/features/repos/view/repos_screen.dart';
 import 'package:git_spot/view/features/favorites/view/favorites_screen.dart';
 import 'package:git_spot/view/features/trending/view/trending_screen.dart';
