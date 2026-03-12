@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:git_spot/view/features/home/model/user_profile_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:git_spot/view/features/home/model/user_profile_model.dart';
+import 'package:git_spot/view/features/repos/model/repo_model.dart';
 
 final githubServiceProvider = Provider((ref) => GithubService());
 
@@ -42,6 +43,21 @@ class GithubService {
           .toList();
     } else {
       throw Exception('Failed to load users');
+    }
+  }
+
+  Future<List<RepoModel>> searchRepositories(String query) async {
+    final response = await http.get(
+      Uri.parse('$_baseUrl/search/repositories?q=$query'),
+    );
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      final List<dynamic> items = data['items'];
+
+      return items.map((item) => RepoModel.fromJson(item)).toList();
+    } else {
+      throw Exception('Failed to load repositories');
     }
   }
 

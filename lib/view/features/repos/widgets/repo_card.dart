@@ -1,21 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:git_spot/view/features/repos/model/repo_model.dart';
 
 class RepoCard extends StatelessWidget {
-  final String repoName;
-  final String description;
-  final int stars;
-  final int downloads;
-  final String updatedAt;
+  final RepoModel repoModel;
   final VoidCallback onShare;
   final VoidCallback onOpen;
 
   const RepoCard({
     super.key,
-    required this.repoName,
-    required this.description,
-    required this.stars,
-    required this.downloads,
-    required this.updatedAt,
+    required this.repoModel,
     required this.onShare,
     required this.onOpen,
   });
@@ -29,11 +22,8 @@ class RepoCard extends StatelessWidget {
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(14),
-        color: theme.colorScheme.surface
-        ,
-        border: Border.all(
-          color: theme.dividerColor.withOpacity(0.6),
-        ),
+        color: theme.colorScheme.surface,
+        border: Border.all(color: theme.dividerColor.withValues(alpha: 0.6)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,7 +33,7 @@ class RepoCard extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  repoName,
+                  repoModel.name,
                   style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w600,
                   ),
@@ -64,7 +54,7 @@ class RepoCard extends StatelessWidget {
 
           /// 🔹 Description
           Text(
-            description,
+            repoModel.description,
             style: theme.textTheme.bodySmall,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
@@ -77,16 +67,18 @@ class RepoCard extends StatelessWidget {
             children: [
               _InfoChip(
                 icon: Icons.star_border,
-                label: stars.toString(),
+                label: repoModel.stars.toString(),
               ),
               const SizedBox(width: 12),
               _InfoChip(
-                icon: Icons.download_outlined,
-                label: downloads.toString(),
+                icon: Icons.call_split, // Fork icon approximation
+                label: repoModel.forks.toString(),
               ),
+              const SizedBox(width: 12),
+              _InfoChip(icon: Icons.code, label: repoModel.language),
               const Spacer(),
               Text(
-                "Updated $updatedAt",
+                "Updated ${repoModel.updatedAt}",
                 style: theme.textTheme.labelSmall,
               ),
             ],
@@ -101,10 +93,7 @@ class _InfoChip extends StatelessWidget {
   final IconData icon;
   final String label;
 
-  const _InfoChip({
-    required this.icon,
-    required this.label,
-  });
+  const _InfoChip({required this.icon, required this.label});
 
   @override
   Widget build(BuildContext context) {
@@ -114,16 +103,13 @@ class _InfoChip extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        color: theme.colorScheme.surfaceVariant.withOpacity(0.4),
+        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.4),
       ),
       child: Row(
         children: [
           Icon(icon, size: 14),
           const SizedBox(width: 4),
-          Text(
-            label,
-            style: theme.textTheme.labelSmall,
-          ),
+          Text(label, style: theme.textTheme.labelSmall),
         ],
       ),
     );
