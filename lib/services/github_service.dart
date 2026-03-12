@@ -61,6 +61,28 @@ class GithubService {
     }
   }
 
+  Future<List<RepoModel>> getTrendingRepositories() async {
+    // Determine the date 7 days ago to simulate trending
+    final date = DateTime.now().subtract(const Duration(days: 7));
+    final dateString =
+        '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
+
+    final response = await http.get(
+      Uri.parse(
+        '$_baseUrl/search/repositories?q=created:>$dateString&sort=stars&order=desc',
+      ),
+    );
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      final List<dynamic> items = data['items'];
+
+      return items.map((item) => RepoModel.fromJson(item)).toList();
+    } else {
+      throw Exception('Failed to load trending repositories');
+    }
+  }
+
   Future<UserProfileModel> getUserDetails(String username) async {
     final response = await http.get(Uri.parse('$_baseUrl/users/$username'));
 

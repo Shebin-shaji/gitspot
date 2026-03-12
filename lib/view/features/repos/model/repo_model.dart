@@ -7,6 +7,8 @@ class RepoModel {
   final String updatedAt;
   final String htmlUrl;
   final String language;
+  final String ownerUsername;
+  final String ownerAvatarUrl;
 
   RepoModel({
     required this.name,
@@ -16,9 +18,16 @@ class RepoModel {
     required this.updatedAt,
     required this.htmlUrl,
     required this.language,
+    this.ownerUsername = '',
+    this.ownerAvatarUrl = '',
   });
 
   factory RepoModel.fromJson(Map<String, dynamic> json) {
+    // Extract owner details safely
+    final ownerMap = json['owner'] as Map<String, dynamic>?;
+    final parsedOwnerUsername = ownerMap?['login'] ?? '';
+    final parsedOwnerAvatarUrl = ownerMap?['avatar_url'] ?? '';
+
     return RepoModel(
       name: json['name'] ?? '',
       description: json['description'] ?? 'No description available',
@@ -27,6 +36,8 @@ class RepoModel {
       updatedAt: _formatDate(json['updated_at'] ?? ''),
       htmlUrl: json['html_url'] ?? '',
       language: json['language'] ?? 'Unknown',
+      ownerUsername: parsedOwnerUsername,
+      ownerAvatarUrl: parsedOwnerAvatarUrl,
     );
   }
 
