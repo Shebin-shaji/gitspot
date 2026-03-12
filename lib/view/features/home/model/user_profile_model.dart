@@ -1,4 +1,5 @@
 class UserProfileModel {
+  final String username;
   final String name;
   final String avatarUrl;
   final String repositoriesCount;
@@ -7,10 +8,13 @@ class UserProfileModel {
   final String bio;
   final String location;
   final String joinedDate;
-  final String email; // Was "Not Mentioned"
-  final String link; // Was "Not Mentioned"
+  final String email;
+  final String link;
+  final int totalStars;
+  final String? primaryLanguage;
 
   UserProfileModel({
+    required this.username,
     required this.name,
     required this.avatarUrl,
     required this.repositoriesCount,
@@ -21,10 +25,13 @@ class UserProfileModel {
     required this.joinedDate,
     required this.email,
     required this.link,
+    this.totalStars = 0,
+    this.primaryLanguage,
   });
 
   factory UserProfileModel.fromJson(Map<String, dynamic> json) {
     return UserProfileModel(
+      username: json['login'] ?? "unknown",
       name: json['name'] ?? json['login'] ?? "Unknown",
       avatarUrl: json['avatar_url'] ?? "",
       repositoriesCount: (json['public_repos'] ?? 0).toString(),

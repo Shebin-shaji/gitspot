@@ -1,24 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:git_spot/view/features/home/model/user_profile_model.dart';
 
 class TrendingDeveloperCard extends StatelessWidget {
-  final String username;
-  final String name;
-  final String avatarUrl;
-  final String bio;
-  final int totalStars;
-  final int publicRepos;
-  final String? primaryLanguage;
+  final UserProfileModel userProfileModel;
   final VoidCallback onOpenProfile;
 
   const TrendingDeveloperCard({
     super.key,
-    required this.username,
-    required this.name,
-    required this.avatarUrl,
-    required this.bio,
-    required this.totalStars,
-    required this.publicRepos,
-    this.primaryLanguage,
+    required this.userProfileModel,
     required this.onOpenProfile,
   });
 
@@ -39,7 +28,9 @@ class TrendingDeveloperCard extends StatelessWidget {
               /// Avatar
               CircleAvatar(
                 radius: 28,
-                backgroundImage: NetworkImage(avatarUrl),
+                backgroundImage: NetworkImage(userProfileModel.avatarUrl),
+                onBackgroundImageError: (_, _) =>
+                    const Icon(Icons.person, size: 28),
               ),
 
               const SizedBox(width: 16),
@@ -50,17 +41,20 @@ class TrendingDeveloperCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      name,
+                      userProfileModel.name,
                       style: theme.textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 2),
-                    Text("@$username", style: theme.textTheme.bodySmall),
+                    Text(
+                      "@${userProfileModel.username}",
+                      style: theme.textTheme.bodySmall,
+                    ),
                     const SizedBox(height: 6),
                     Text(
-                      bio,
+                      userProfileModel.bio,
                       style: theme.textTheme.bodySmall,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
@@ -72,16 +66,18 @@ class TrendingDeveloperCard extends StatelessWidget {
                       children: [
                         _DevStat(
                           icon: Icons.star_border,
-                          value: totalStars.toString(),
+                          value: userProfileModel.totalStars.toString(),
                         ),
                         const SizedBox(width: 12),
                         _DevStat(
                           icon: Icons.folder_outlined,
-                          value: publicRepos.toString(),
+                          value: userProfileModel.repositoriesCount,
                         ),
-                        if (primaryLanguage != null) ...[
+                        if (userProfileModel.primaryLanguage != null) ...[
                           const SizedBox(width: 12),
-                          _LanguageBadge(language: primaryLanguage!),
+                          _LanguageBadge(
+                            language: userProfileModel.primaryLanguage!,
+                          ),
                         ],
                       ],
                     ),

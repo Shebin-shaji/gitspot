@@ -28,16 +28,17 @@ class GithubService {
       return items
           .map(
             (item) => UserProfileModel(
-              name: item['login'],
-              avatarUrl: item['avatar_url'],
-              repositoriesCount: "0", // Not in search result
-              followersCount: "0", // Not in search result
-              followingCount: "0", // Not in search result
-              bio: "", // Not in search result
-              location: "", // Not in search result
-              joinedDate: "", // Not in search result
-              email: "", // Not in search result
-              link: "", // Not in search result
+              username: item['login'] ?? "unknown",
+              name: item['login'] ?? "unknown",
+              avatarUrl: item['avatar_url'] ?? "",
+              repositoriesCount: "0",
+              followersCount: "0",
+              followingCount: "0",
+              bio: "",
+              location: "",
+              joinedDate: "",
+              email: "",
+              link: "",
             ),
           )
           .toList();
@@ -80,6 +81,31 @@ class GithubService {
       return items.map((item) => RepoModel.fromJson(item)).toList();
     } else {
       throw Exception('Failed to load trending repositories');
+    }
+  }
+
+  Future<List<UserProfileModel>> getTrendingDevelopers() async {
+    // Determine the date 30 days ago to simulate trending users based on recent followers/activity
+    final date = DateTime.now().subtract(const Duration(days: 30));
+    final dateString =
+        '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
+
+    final response = await http.get(
+      Uri.parse(
+        '$_baseUrl/search/users?q=created:>$dateString&sort=followers&order=desc',
+      ),
+    );
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      final List<dynamic> items = data['items'];
+
+      // Note: The search/users API returns simplified user objects.
+      // It won't have the full bio/followers count natively unless we re-fetch them individually
+      // To keep it performant, we will map what we have from the summary item
+      return items.map((item) => UserProfileModel.fromJson(item)).toList();
+    } else {
+      throw Exception('Failed to load trending developers');
     }
   }
 
