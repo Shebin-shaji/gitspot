@@ -13,9 +13,14 @@ class CustomRowHome extends StatelessWidget {
       children: [
         Icon(icon ?? Icons.person, color: theme.iconTheme.color),
         const SizedBox(width: 12),
-        Text(
-          title ?? "Data Science | AI/ML",
-          style: theme.textTheme.bodyMedium,
+        SizedBox(
+          width: 320,
+          child: Text(
+            title ?? "Data Science | AI/ML",
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: theme.textTheme.bodyMedium,
+          ),
         ),
       ],
     );
